@@ -1,0 +1,31 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: bi_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: farmacia_db
+      MYSQL_USER: victor
+      MYSQL_PASSWORD: victor123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d:ro
+
+  postgres:
+    image: postgres:16
+    container_name: bi_postgres
+    environment:
+      POSTGRES_DB: farmacia_db
+      POSTGRES_USER: victor
+      POSTGRES_PASSWORD: victor123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  mysql_data:
+  postgres_data:
