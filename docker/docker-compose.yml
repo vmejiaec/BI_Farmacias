@@ -8,7 +8,7 @@ services:
       MYSQL_USER: victor
       MYSQL_PASSWORD: victor123
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./mysql-init:/docker-entrypoint-initdb.d:ro
@@ -25,6 +25,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./postgres-init:/docker-entrypoint-initdb.d:ro
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: mailpit
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    restart: unless-stopped
 
 volumes:
   mysql_data:
