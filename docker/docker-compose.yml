@@ -1,7 +1,7 @@
 services:
-  mysql:
+  ventas:
     image: mysql:8.4
-    container_name: bi_mysql
+    container_name: ventas
     environment:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: farmacia_db
@@ -10,12 +10,12 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./mysql-init:/docker-entrypoint-initdb.d:ro
+      - ../../data/ventas_data:/var/lib/mysql
+      - ./ventas-init:/docker-entrypoint-initdb.d:ro
 
-  postgres:
+  gestion:
     image: postgres:16
-    container_name: bi_postgres
+    container_name: gestion
     environment:
       POSTGRES_DB: farmacia_db
       POSTGRES_USER: victor
@@ -23,8 +23,21 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./postgres-init:/docker-entrypoint-initdb.d:ro
+      - ../../data/gestion_data:/var/lib/postgresql/data
+      - ./gestion-init:/docker-entrypoint-initdb.d:ro
+
+  staging:
+    image: postgres:16
+    container_name: staging
+    environment:
+        POSTGRES_DB: datawarehouse
+        POSTGRES_USER: victor
+        POSTGRES_PASSWORD: victor123
+    ports:
+      - "5450:5432"
+    volumes:
+      - ../../data/datawarehouse_data:/var/lib/postgresql/data
+      - ./datawarehouse-init:/docker-entrypoint-initdb.d:ro
 
   mailpit:
     image: axllent/mailpit
@@ -33,7 +46,14 @@ services:
       - "1025:1025"
       - "8025:8025"
     restart: unless-stopped
-
-volumes:
-  mysql_data:
-  postgres_data:
+  
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    restart: always
+    ports: 
+      - "8090:8080"
+    depends_on:
+      - gestion
+      - ventas
+      - staging
