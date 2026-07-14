@@ -446,11 +446,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select values</from>
-      <to>Select values 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Select values 2</from>
       <to>Sort rows</to>
       <enabled>Y</enabled>
@@ -463,6 +458,11 @@
     <hop>
       <from>Unique rows</from>
       <to>Stage_Catogorias</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Select values 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -675,7 +675,7 @@
     <name>Select values</name>
     <type>SelectValues</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -819,78 +819,6 @@
     </GUI>
   </step>
   <step>
-    <name>Stage_Medicamentos</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Stage</connection>
-    <schema>stg</schema>
-    <table>excel_medicamentos</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>codigo_medicamento</column_name>
-        <stream_name>codigo_medicamento</stream_name>
-      </field>
-      <field>
-        <column_name>nombre_medicamento</column_name>
-        <stream_name>nombre_medicamento</stream_name>
-      </field>
-      <field>
-        <column_name>codigo_categoria</column_name>
-        <stream_name>codigo_categoria</stream_name>
-      </field>
-      <field>
-        <column_name>codigo_laboratorio</column_name>
-        <stream_name>codigo_laboratorio</stream_name>
-      </field>
-      <field>
-        <column_name>presentacion</column_name>
-        <stream_name>presentacion</stream_name>
-      </field>
-      <field>
-        <column_name>costo_base</column_name>
-        <stream_name>costo_base_mysql</stream_name>
-      </field>
-      <field>
-        <column_name>precio_venta</column_name>
-        <stream_name>precio_venta_mysql</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>600</xloc>
-      <yloc>100</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Select values 2</name>
     <type>SelectValues</type>
     <description/>
@@ -949,41 +877,6 @@
     <GUI>
       <xloc>400</xloc>
       <yloc>208</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Unique rows</name>
-    <type>Unique</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <count_rows>N</count_rows>
-    <count_field/>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
-    <fields>
-      <field>
-        <name>codigo_categoria</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>512</xloc>
-      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1077,6 +970,113 @@
     </remotesteps>
     <GUI>
       <xloc>672</xloc>
+      <yloc>304</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Stage_Medicamentos</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Stage</connection>
+    <schema>stg</schema>
+    <table>excel_medicamentos</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>codigo_medicamento</column_name>
+        <stream_name>codigo_medicamento</stream_name>
+      </field>
+      <field>
+        <column_name>nombre_medicamento</column_name>
+        <stream_name>nombre_medicamento</stream_name>
+      </field>
+      <field>
+        <column_name>codigo_categoria</column_name>
+        <stream_name>codigo_categoria</stream_name>
+      </field>
+      <field>
+        <column_name>codigo_laboratorio</column_name>
+        <stream_name>codigo_laboratorio</stream_name>
+      </field>
+      <field>
+        <column_name>presentacion</column_name>
+        <stream_name>presentacion</stream_name>
+      </field>
+      <field>
+        <column_name>costo_base</column_name>
+        <stream_name>costo_base_mysql</stream_name>
+      </field>
+      <field>
+        <column_name>precio_venta</column_name>
+        <stream_name>precio_venta_mysql</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>600</xloc>
+      <yloc>100</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Unique rows</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>codigo_categoria</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>512</xloc>
       <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
