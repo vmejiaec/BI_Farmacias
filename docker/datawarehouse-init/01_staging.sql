@@ -172,8 +172,8 @@ CREATE TABLE IF NOT EXISTS stg.excel_distribuidores (
 CREATE TABLE IF NOT EXISTS stg.excel_medicamentos (
     codigo_medicamento VARCHAR(30),
     nombre_medicamento VARCHAR(200),
-    categoria VARCHAR(150),
-    laboratorio VARCHAR(150),
+    codigo_categoria VARCHAR(150),
+    codigo_laboratorio VARCHAR(150),
     presentacion VARCHAR(150),
     costo_base NUMERIC(14,4),
     precio_venta NUMERIC(14,4),
