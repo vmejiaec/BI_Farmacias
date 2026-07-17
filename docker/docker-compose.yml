@@ -57,3 +57,22 @@ services:
       - gestion
       - ventas
       - staging
+
+  rstudio:
+    build:
+      context: ./rstudio
+    container_name: bi_rstudio
+    environment:
+      PASSWORD: rstudio123
+      DW_HOST: staging
+      DW_PORT: 5432
+      DW_DATABASE: datawarehouse
+      DW_USER: victor
+      DW_PASSWORD: victor123
+    ports:
+      - "8787:8787"
+    volumes:
+      - ./rstudio/proyecto:/home/rstudio/proyecto
+    depends_on:
+      - staging
+    restart: unless-stopped
