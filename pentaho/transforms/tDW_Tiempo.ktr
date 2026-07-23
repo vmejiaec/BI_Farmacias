@@ -474,7 +474,7 @@
 , nombre_dia
 , es_fin_semana
 FROM dw.view_aux_tiempo
-where anio = 2026</sql>
+where anio = 2027</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
