@@ -39,6 +39,27 @@ services:
       - ../../data/datawarehouse_data:/var/lib/postgresql/data
       - ./datawarehouse-init:/docker-entrypoint-initdb.d:ro
 
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: bi_sqlserver
+
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "SqlServer123!"
+      MSSQL_PID: "Developer"
+
+    ports:
+      - "1433:1433"
+
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./sqlserver-init:/docker-entrypoint-initdb.d:ro
+
+    entrypoint:
+      - /bin/bash
+      - /docker-entrypoint-initdb.d/entrypoint.sh
+
+
   mailpit:
     image: axllent/mailpit
     container_name: mailpit
