@@ -429,7 +429,7 @@
     <created_date>2026/07/21 20:58:54.880</created_date>
     <modified_user>-</modified_user>
     <modified_date>2026/07/21 20:58:54.880</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -437,10 +437,93 @@
   <order>
     <hop>
       <from>Punto_Entrega</from>
+      <to>Stream lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Coordenadas</from>
+      <to>Stream lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Stream lookup</from>
       <to>Insert / update</to>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <step>
+    <name>Insert / update</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Datamart</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>dw</schema>
+      <table>dim_sucursal</table>
+      <key>
+        <name>codigo_sucursal</name>
+        <field>codigo_sucursal</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>codigo_sucursal</name>
+        <rename>codigo_sucursal</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>nombre_sucursal</name>
+        <rename>nombre_sucursal</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>zona</name>
+        <rename>zona</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ciudad</name>
+        <rename>ciudad</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>latitud</name>
+        <rename>latitud</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>longitud</name>
+        <rename>longitud</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>direccion</name>
+        <rename>direccion_completa</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>Punto_Entrega</name>
     <type>TableInput</type>
@@ -616,14 +699,14 @@ FROM stg.excel_puntos_entrega
       </output>
     </remotesteps>
     <GUI>
-      <xloc>200</xloc>
-      <yloc>100</yloc>
+      <xloc>112</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insert / update</name>
-    <type>InsertUpdate</type>
+    <name>Coordenadas</name>
+    <type>DataGrid</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -632,42 +715,134 @@ FROM stg.excel_puntos_entrega
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Datamart</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
+    <fields>
+      <field>
+        <name>codigo_sucursal</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <field_null_if/>
+      </field>
+      <field>
+        <name>latitud</name>
+        <type>BigNumber</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <field_null_if/>
+      </field>
+      <field>
+        <name>longitud</name>
+        <type>BigNumber</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <field_null_if/>
+      </field>
+      <field>
+        <name>direccion_completa</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <field_null_if/>
+      </field>
+    </fields>
+    <data>
+      <line>
+        <item>CENTRO</item>
+        <item>-0,215003</item>
+        <item>-78,504428</item>
+        <item>Santa Prisca OE1-76, Quito</item>
+      </line>
+      <line>
+        <item>NORTE</item>
+        <item>-0,169834</item>
+        <item>-78,479838</item>
+        <item>Av de los Shyris 179, Quito</item>
+      </line>
+      <line>
+        <item>SUR</item>
+        <item>-0,230584</item>
+        <item>-78,523282</item>
+        <item>Necochea 7463, Quito</item>
+      </line>
+      <line>
+        <item>VALLE</item>
+        <item>-0,214091</item>
+        <item>-78,434896</item>
+        <item>La Primavera, Cumbayá</item>
+      </line>
+    </data>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Stream lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>Coordenadas</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
     <lookup>
-      <schema>dw</schema>
-      <table>dim_sucursal</table>
       <key>
         <name>codigo_sucursal</name>
         <field>codigo_sucursal</field>
-        <condition>=</condition>
-        <name2/>
       </key>
       <value>
-        <name>codigo_sucursal</name>
-        <rename>codigo_sucursal</rename>
-        <update>Y</update>
+        <name>latitud</name>
+        <rename>latitud</rename>
+        <default/>
+        <type>None</type>
       </value>
       <value>
-        <name>nombre_sucursal</name>
-        <rename>nombre_sucursal</rename>
-        <update>Y</update>
+        <name>longitud</name>
+        <rename>longitud</rename>
+        <default/>
+        <type>None</type>
       </value>
       <value>
-        <name>zona</name>
-        <rename>zona</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>ciudad</name>
-        <rename>ciudad</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>direccion</name>
-        <rename>direccion</rename>
-        <update>Y</update>
+        <name>direccion_completa</name>
+        <rename>direccion_completa</rename>
+        <default/>
+        <type>None</type>
       </value>
     </lookup>
     <attributes/>
@@ -679,8 +854,8 @@ FROM stg.excel_puntos_entrega
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
-      <yloc>100</yloc>
+      <xloc>352</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
